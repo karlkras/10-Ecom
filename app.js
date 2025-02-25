@@ -20,13 +20,13 @@ import express from "express";
 const app = express();
 
 // rest of the packages:
-import morgan from "morgan";
+//import morgan from "morgan";
 
 // error handler
 import notFoundMiddleware from "./middleware/not-found.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
 
-app.use(morgan("tiny"));
+//app.use(morgan("tiny"));
 
 import cookieParser from "cookie-parser";
 
@@ -52,10 +52,6 @@ app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/products", productRoutes);
 app.use("/api/v1/reviews", reviewRoutes);
 app.use("/api/v1/orders", orderRoutes);
-
-app.get("/", (req, res) => {
-  res.status(StatusCodes.OK).send("<h1>Hello Ecommerce</h1>");
-});
 
 app.get("/api/v1", (req, res) => {
   console.log(req.signedCookies);
