@@ -40,11 +40,6 @@ app.use(
 app.use(express.static("./public"));
 app.use(express.json());
 app.use(cookieParser(process.env.JWT_SECRET));
-app.use(helmet());
-app.use(cors());
-app.use(xss());
-app.use(expressMongoSanitize());
-
 app.use(fileUpload());
 
 app.use("/api/v1/auth", authRoutes);
@@ -53,10 +48,11 @@ app.use("/api/v1/products", productRoutes);
 app.use("/api/v1/reviews", reviewRoutes);
 app.use("/api/v1/orders", orderRoutes);
 
-app.get("/api/v1", (req, res) => {
-  console.log(req.signedCookies);
-  res.status(StatusCodes.OK).send("<h1>Hello Ecommerce</h1>");
-});
+app.use(helmet());
+app.use(cors());
+app.use(xss());
+app.use(expressMongoSanitize());
+
 // middleware
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
